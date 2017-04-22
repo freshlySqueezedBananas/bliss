@@ -1,0 +1,33 @@
+$container-size: 600px;
+
+img {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 3px;
+  margin: 0 auto 15px;
+}
+
+ul.list-group {
+  max-width: $container-size;
+  margin: 0 auto;
+
+
+  .progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.question-detail {
+  text-align: center;
+}
+
+.answer {
+  cursor: pointer;
+}
+
+.progress-bar {
+  &.active {
+    background-color: darkturquoise;
+  }
+}

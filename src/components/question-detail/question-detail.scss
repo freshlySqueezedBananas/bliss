@@ -1,0 +1,32 @@
+$container-size: 600px;
+
+img {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 3px;
+  margin: 0 auto 15px;
+}
+
+ul.list-group {
+  max-width: $container-size;
+  margin: 0 auto;
+
+  .progress {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.question-detail {
+  text-align: center;
+}
+
+.signature {
+  margin-bottom: 15px;
+}
+
+.list-group {
+  &.active {
+    pointer-events: none;
+  }
+}

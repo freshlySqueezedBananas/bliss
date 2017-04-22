@@ -1,0 +1,4 @@
+<div class="container">
+  <question-list @showModal="showModal = true" @filter="updateFilter"></question-list>
+  <modal v-if="showModal" @close="showModal = false" :filter="filter"></modal>
+</div>

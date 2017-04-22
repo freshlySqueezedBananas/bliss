@@ -1,0 +1,31 @@
+<transition name="modal">
+
+  <div class="modal-mask" @click="$emit('close')">
+    <div class="modal-wrapper">
+      <form>
+        <div class="modal-container" @click="stopPropagation">
+          <div class="modal-header">
+            <strong>Share question</strong>
+            <button type="button" class="close pull-right" aria-label="Close" @click="$emit('close')"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+              <p class="text-danger" v-if="failed">Something went wrong. Try again!</p>
+              <div class="form-group">
+                <label class="sr-only" for="emailInput">E-mail</label>
+                <div class="input-group">
+                  <div class="input-group-addon">@</div>
+                  <input type="email" class="form-control" id="emailInput" placeholder="E-mail" v-model="email">
+                </div>
+              </div>
+              <p class="text-danger" v-if="error">Invalid e-mail format</p>
+              <div class="link-box">{{ link }}</div>
+          </div>
+
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" @click="shareQuestion">Share</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</transition>

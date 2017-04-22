@@ -1,0 +1,28 @@
+<div>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-header navbar-right">
+        <form class="navbar-form" role="search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" ref="filter" :value="filter" v-model="filter">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" @click="searchQuestions" @keyup.enter="searchQuestions"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <ul class="list-group">
+    <question v-for="question in questions" :question="question" :key="question.id"></question>
+    <infinite-loading spinner="waveDots" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
+  </ul>
+  <nav class="navbar navbar-default navbar-fixed-bottom" v-if="searching">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <button type="button" class="close" aria-label="Close" @click="exitSearch"><span aria-hidden="true">&times;</span></button>
+      <button type="button" class="share-button btn btn-primary pull-right" @click="$emit('showModal')">Share</button>
+    </div><!-- /.container-fluid -->
+  </nav>
+</div>

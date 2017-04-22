@@ -1,0 +1,8 @@
+<a class="list-group-item question" @click="inspectQuestion">
+  <img :src="question.thumb_url" class="img-thumbnail pull-left">
+    <div class="signature pull-right">{{ question.date }}</div>
+    <h3>{{ question.question }}</h3>
+    <div class="signature"><a href="#">@anonymous</a> {{ date }}</div>
+    Popular answer: <em>{{ question.choices[0].choice }}</em>
+  <div class="clearfix"></div>
+</a>

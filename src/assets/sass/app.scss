@@ -1,0 +1,23 @@
+#app {
+  padding-top: 75px;
+}
+
+.container {
+  max-width: 800px;
+}
+
+a, button {
+  &:hover,&:active,&:focus {
+    outline: none !important;
+  }
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+.halt {
+  overflow: hidden;
+}

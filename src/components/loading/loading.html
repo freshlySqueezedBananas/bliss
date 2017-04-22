@@ -1,0 +1,21 @@
+<transition name="fade">
+    <div class="loading">
+      <transition name="fade">
+        <div class="no-conn" v-if="!conn">
+          <p>There seems to be no connection!</p>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div class="no-conn" v-if="dead && conn">
+          <p>There seems to be a problem!</p>
+          <button class="btn btn-danger" aria-label="Delete" @click=" $emit('refresh')" :disabled="refreshing">
+            <i class="fa fa-refresh" :class="{ 'fa-spin': refreshing }" aria-hidden="true"></i>
+          </button>
+        </div>
+      </transition>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.938 32.147">
+        <polyline v-if="!dead" class="live" points="0 18.212 0 18.212 21.429 18.212 23.25 22.795 27.5 1.337 32.875 30.775 36.188 13.15 37.274 18.212 58.938 18.212" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.5px"/>
+        <polyline v-if="dead" points="0 18.25 0 18.25 58.938 18.25" style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.5px"/>
+      </svg>
+    </div>
+</transition>
