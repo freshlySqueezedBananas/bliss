@@ -22,7 +22,7 @@ export default {
       this.searching = true;
       this.$emit('filter', this.filter);
     }
-    else if (filter == null) {
+    else if (filter === null) {
       this.focus = true;
     }
 
