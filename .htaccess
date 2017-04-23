@@ -1,4 +1,0 @@
-RewriteEngine On
-
-RewriteCond %{REQUEST_URI} !^/bliss/.*$
-RewriteRule ^(.*)$ /bliss/$1 [QSA,L]
