@@ -72,6 +72,7 @@
       },
       onRefresh: function() {
         this.refreshing = true;
+        this.resetTrials();
         this.checkHealth();
       }
     },
