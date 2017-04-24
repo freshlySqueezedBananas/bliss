@@ -22,6 +22,11 @@ export default new Router({
       name: 'question',
       component: require('@/pages/question/index/index.vue'),
       props: true,
+    },
+    {
+      path: '/sandbox',
+      name: 'sandbox',
+      component: require('@/pages/sandbox/index/index.vue'),
     }
   ]
 })

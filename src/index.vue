@@ -4,13 +4,16 @@
     <router-view></router-view>
   </div>
 </template>
+
 <script>
   import Vue from 'vue'
+  import store from './store'
   import router from './router'
   import loadingScreen from './components/loading/loading.vue';
 
   export default {
     router,
+    store,
     data: function() {
       return {
         health: null,
