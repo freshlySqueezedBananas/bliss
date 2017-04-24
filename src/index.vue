@@ -29,7 +29,7 @@
     },
     methods: {
       checkHealth: function() {
-        Vue.$http.get("https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/health").then(response => {
+        Vue.$http.get("https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/healh").then(response => {
           if (response.data.status == 'OK') {
             this.pronounceAlive();
           }
@@ -75,6 +75,7 @@
       },
       onRefresh: function() {
         this.refreshing = true;
+        this.resetTrials();
         this.checkHealth();
       }
     },
