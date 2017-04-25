@@ -8,7 +8,7 @@
 <script>
   import Vue from 'vue'
   import store from './store'
-  import router from './router'
+  import { router } from './bootstrap'
   import loadingScreen from './components/loading/loading.vue';
 
   export default {

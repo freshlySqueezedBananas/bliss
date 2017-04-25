@@ -28,6 +28,26 @@ Axios.defaults.baseURL = "";
 Axios.defaults.headers.common.Accept = 'application/json';
 Vue.$http = Axios;
 
+/* ============
+ * Vuex Router Sync
+ * ============
+ * http://router.vuejs.org/en/index.html
+ */
+import VuexRouterSync from 'vuex-router-sync';
+import store from './store';
+
+import VueRouter from 'vue-router';
+import routes from './routes';
+
+Vue.use(VueRouter);
+
+export const router = new VueRouter({
+  ...routes
+});
+
+VuexRouterSync.sync(store, router);
+
+Vue.router = router;
 
 /* ============
  * jQuery
@@ -60,3 +80,8 @@ require('font-awesome/css/font-awesome.min.css');
  * ============
  */
 require('./assets/sass/app.scss');
+
+
+export default {
+  router,
+};
