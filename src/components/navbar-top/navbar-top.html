@@ -4,7 +4,7 @@
     <div class="navbar-header">
       <form class="inline-form" role="search">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" ref="search" :value="search" v-model="search" @keyup.enter.prevent="searchQuestion">
+          <input type="text" class="form-control" placeholder="Search" ref="search" :value="filter" :filter:="filter" v-model="search" @keyup.enter.prevent="searchQuestion">
           <div class="input-group-btn">
               <button class="btn btn-default" type="button" @click="searchQuestion"><i class="glyphicon glyphicon-search"></i></button>
           </div>

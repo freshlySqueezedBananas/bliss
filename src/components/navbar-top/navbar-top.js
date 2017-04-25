@@ -1,14 +1,10 @@
-import { mapState, mapGetters, mapActions } from 'vuex'
-
 export default {
+  props: ['filter'],
   data: function() {
     return {
       search: '',
     }
   },
-  computed: mapState({
-    filter: state => state.questions.filter
-  }),
   created: function() {
     this.search = this.filter;
   },
@@ -20,18 +16,12 @@ export default {
     }
     else {
       this.search = questionFilter;
-
-      //this.searchQuestion();
     }
   },
   methods: {
-    ...mapActions([
-      'updateFilter'
-    ]),
     searchQuestion: function() {
       if (this.search != this.filter) {
-        this.$router.push({ query: { question_filter: this.search }});
-        this.updateFilter(this.search);
+        this.$emit('search', this.search);
       }
     }
   }

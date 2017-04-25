@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import uuid from 'uuid';
 
 import {
   FETCH_QUESTIONS,
@@ -22,4 +21,8 @@ export function searchQuestions({ commit, state }) {
 
 export function updateFilter({ commit }, filter) {
   commit(SET_FILTER, filter);
+}
+
+export function share({ commit }, { email, link }) {
+  console.log('shared');
 }

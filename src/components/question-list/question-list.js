@@ -4,15 +4,20 @@ import question from '../question/question.vue';
 import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
+  props: ['filtering'],
   data: function() {
     return {
-      contentLoaded: false,
+      contentLoaded: true,
       searching: false,
     }
   },
-  created: function() {
-    if (this.filter == "") {
+  mounted: function() {
+    if (!this.filtering) {
       this.fetchQuestions()
+        .then(() => this.contentLoaded = true );
+    }
+    else {
+      this.searchQuestions()
         .then(() => this.contentLoaded = true );
     }
   },
@@ -31,16 +36,6 @@ export default {
           .then(() => this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded'))
           .catch(() => this.$refs.infiniteLoading.$emit('$InfiniteLoading:completed'));
       }
-    },
-    shareQuestion: function(e) {
-      e.preventDefault();
-      this.$emit('showModal');
-    },
-    exitSearch: function() {
-      this.searching = false;
-      this.questions = [];
-      this.filter = '';
-      this.offset = 0;
     }
   },
   components: {
@@ -49,9 +44,9 @@ export default {
   },
   watch: {
     filter: function() {
-      //$(window).scrollTop(0);
+      console.log('filter updated in component');
+      $(window).scrollTop(0);
       this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
-      this.searching = true;
       this.contentLoaded = false
       this.searchQuestions()
         .then(() => this.contentLoaded = true );

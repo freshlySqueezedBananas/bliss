@@ -1,6 +1,8 @@
 import Vue from 'vue';
+import { mapActions } from 'vuex'
 
 export default {
+  props: ['title'],
   data: function() {
     return {
       link: '',
@@ -13,32 +15,28 @@ export default {
     this.link = encodeURI(window.location.href)
   },
   methods: {
-    stopPropagation: function(e) {
-      e.stopPropagation();
-    },
+    ...mapActions([
+      'share',
+    ]),
     validateEmail: function() {
       let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return reg.test(this.email);
     },
-    shareQuestion: function(e) {
+    shareQuestion: function() {
+      $(this.$refs.button).prop('disabled', true);
       if (this.validateEmail()) {
-        var context = this;
-
-        $(e.target).prop('disabled', true);
-
-        Vue.$http.post('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/share?'+this.email+'&'+this.link).then(response => {
-          if (response.status == 200) {
-            context.$emit('close');
-          }
-          else {
-            this.failed = true;
-
-            $(e.target).prop('disabled', false);
-          }
-        });
+        this.share(this.email, this.link)
+          .then(() => {
+              this.$emit('close');
+          })
+          .catch(() => {
+              this.failed = true;
+              $(this.$refs.button).prop('disabled', false);
+          });
       }
       else {
         this.error = true;
+        $(this.$refs.button).prop('disabled', false);
       }
     }
   }
