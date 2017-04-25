@@ -56,7 +56,7 @@
       },
       pronounceAlive: function() {
         this.health = true;
-        this.monitorConnection();
+        //this.monitorConnection();
         this.showLoading = false;
       },
       pronounceDead: function() {

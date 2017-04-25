@@ -2,6 +2,7 @@ import * as actions from './actions';
 import * as getters from './getters';
 
 const initial = {
+  processing: false,
   limit: 10,
   offset: 0,
   filter: '',

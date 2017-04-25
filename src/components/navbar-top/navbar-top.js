@@ -20,6 +20,8 @@ export default {
     }
     else {
       this.search = questionFilter;
+
+      //this.searchQuestion();
     }
   },
   methods: {
@@ -28,7 +30,7 @@ export default {
     ]),
     searchQuestion: function() {
       if (this.search != this.filter) {
-        this.$router.push({ path: this.$route.path, query: { question_filter: this.search }});
+        this.$router.push({ query: { question_filter: this.search }});
         this.updateFilter(this.search);
       }
     }

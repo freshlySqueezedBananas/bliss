@@ -1,5 +1,8 @@
 <div class="container">
   <navbar-top/>
-  <question-list @showModal="showModal = true"/>
+  <question-list/>
   <modal v-if="showModal" @close="showModal = false"/>
+  <transition name="slide-down">
+    <navbar-bottom v-if="showNavBottom" @showModal="showModal = true"/>
+  </transition>
 </div>

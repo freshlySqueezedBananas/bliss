@@ -6,50 +6,31 @@ import InfiniteLoading from 'vue-infinite-loading';
 export default {
   data: function() {
     return {
+      contentLoaded: false,
       searching: false,
-      init: false,
-      focus: false,
     }
   },
   created: function() {
-    this.fetchQuestions().then(() => console.log('fetched mofo'));
-  },
-  mounted: function() {
+    if (this.filter == "") {
+      this.fetchQuestions()
+        .then(() => this.contentLoaded = true );
+    }
   },
   computed: mapGetters({
+    filter: 'getFilter',
     questions: 'getQuestions'
   }),
   methods: {
     ...mapActions([
       'fetchQuestions',
+      'searchQuestions',
     ]),
-    ...mapActions({
-      search: 'searchQuestions',
-    }),
     onInfinite: function() {
-      this.fetchQuestions().then((response) => console.log(response));
-    },
-    getQuestions: function() {
-      Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?'+this.limit+'&'+this.offset+'&'+this.filter).then(response => {
-        if (response.data.length > 0) {
-          this.questions = this.questions.concat(response.data);
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
-        }
-        else {
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:completed');
-        }
-
-        this.init = true;
-      });
-    },
-    searchQuestions: function(e) {
-      e.preventDefault();
-      this.searching = true;
-      this.questions = [];
-      this.offset = 0;
-
-      this.$emit('filter', this.filter);
-
+      if (this.questions.length > 0) {
+        this.fetchQuestions()
+          .then(() => this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded'))
+          .catch(() => this.$refs.infiniteLoading.$emit('$InfiniteLoading:completed'));
+      }
     },
     shareQuestion: function(e) {
       e.preventDefault();
@@ -67,5 +48,13 @@ export default {
     InfiniteLoading,
   },
   watch: {
+    filter: function() {
+      //$(window).scrollTop(0);
+      this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+      this.searching = true;
+      this.contentLoaded = false
+      this.searchQuestions()
+        .then(() => this.contentLoaded = true );
+    }
   }
 }
