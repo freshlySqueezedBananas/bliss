@@ -1,7 +1,6 @@
 <div>
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <!--<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-      <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="navbar-header navbar-right">
         <form class="navbar-form" role="search">
           <div class="input-group">
@@ -11,9 +10,9 @@
             </div>
           </div>
         </form>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+      </div>
+    </div>
+  </nav> -->
   <ul class="list-group">
     <question v-for="question in questions" :question="question" :key="question.id"></question>
     <infinite-loading spinner="waveDots" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>

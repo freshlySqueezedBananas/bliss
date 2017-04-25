@@ -1,29 +1,45 @@
-// src/vuex/modules/products/index.js
 import * as actions from './actions';
 import * as getters from './getters';
-import {
-  FETCH_QUESTIONS,
-} from './mutation-types'
 
-// initial state
-const initialState = {
+const initial = {
   limit: 10,
   offset: 0,
   filter: '',
   all: []
-}
+};
 
-// mutations
+
+import {
+  FETCH_QUESTIONS,
+  SEARCH_QUESTIONS,
+  SET_LIMIT,
+  SET_OFFSET,
+  SET_FILTER
+} from './mutation-types';
+
 const mutations = {
   [FETCH_QUESTIONS] (state, questions) {
-    // assign the questions that we got from our FETCH_QUESTIONS event to state.all
-    state.all = questions
+    state.all = state.all.concat(questions);
+    state.offset += questions.length;
   },
-}
+  [SEARCH_QUESTIONS] (state, questions) {
+    state.all = questions;
+    state.offset = questions.length;
+  },
+  [SET_LIMIT] (state, limit) {
+    state.limit = limit;
+  },
+  [SET_OFFSET] (state, offset) {
+    state.offset = offset;
+  },
+  [SET_FILTER] (state, filter) {
+    state.filter = filter;
+  }
+};
+
 
 export default {
-  state: { ...initialState },
-  // OBS! Don't forget to export your actions from the products module as well.
+  state: { ...initial },
   actions,
   getters,
   mutations

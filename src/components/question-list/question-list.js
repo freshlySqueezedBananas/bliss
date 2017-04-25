@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex'
 import question from '../question/question.vue';
 import InfiniteLoading from 'vue-infinite-loading';
 
@@ -8,34 +9,25 @@ export default {
       searching: false,
       init: false,
       focus: false,
-      limit: 10,
-      offset: 0,
-      filter: '',
-      questions: []
     }
   },
   created: function() {
-    let filter = this.$route.query.question_filter;
-
-    if (filter) {
-      this.filter = filter;
-      this.searching = true;
-      this.$emit('filter', this.filter);
-    }
-    else if (filter === null) {
-      this.focus = true;
-    }
-
-    this.getQuestions();
+    this.fetchQuestions().then(() => console.log('fetched mofo'));
   },
   mounted: function() {
-    if (this.focus) {
-      this.$refs.filter.focus();
-    }
   },
+  computed: mapGetters({
+    questions: 'getQuestions'
+  }),
   methods: {
+    ...mapActions([
+      'fetchQuestions',
+    ]),
+    ...mapActions({
+      search: 'searchQuestions',
+    }),
     onInfinite: function() {
-      this.offset += this.limit;
+      this.fetchQuestions().then((response) => console.log(response));
     },
     getQuestions: function() {
       Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?'+this.limit+'&'+this.offset+'&'+this.filter).then(response => {
@@ -75,10 +67,5 @@ export default {
     InfiniteLoading,
   },
   watch: {
-    offset: function() {
-      if (this.init) {
-        this.getQuestions();
-      }
-    }
   }
 }
