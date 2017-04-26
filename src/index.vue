@@ -7,8 +7,13 @@
 
 <script>
   import Vue from 'vue'
+  import { mapGetters, mapActions } from 'vuex';
+
   import store from './store'
+  import Service from './services'
   import { router } from './bootstrap'
+
+
   import loadingScreen from './components/loading/loading.vue';
 
   export default {
@@ -25,22 +30,12 @@
     },
     created: function() {
       $('body').addClass('halt');
-      this.checkHealth();
+      Service.health.check();
     },
+    computed: mapGetters({
+      api: 'getApi',
+    }),
     methods: {
-      checkHealth: function() {
-        Vue.$http.get("https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/health").then(response => {
-          if (response.data.status == 'OK') {
-            this.pronounceAlive();
-          }
-          else {
-            this.pronounceDead();
-          }
-        }).catch(error => {
-            this.pronounceDead();
-
-        });
-      },
       monitorConnection: function() {
         let context = this;
         this.checkInterval = setInterval(function() {
@@ -79,6 +74,14 @@
       }
     },
     watch: {
+      api: function() {
+        if (this.api) {
+          this.pronounceAlive();
+        }
+        else {
+          this.pronounceDead();
+        }
+      },
       showLoading: function() {
         if (this.showLoading) {
           $('body').addClass('halt');

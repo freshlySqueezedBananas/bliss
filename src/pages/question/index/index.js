@@ -25,7 +25,6 @@ export default {
     ]),
     goBack: function() {
       this.$router.push('/');
-      console.log();
     }
   },
   components: {
