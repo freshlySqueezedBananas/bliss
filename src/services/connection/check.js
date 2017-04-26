@@ -6,21 +6,21 @@ const success = (response) => {
 
   switch(response.status) {
     case 200:
-      if (response.data.status == "OK") {
-        status = true;
-      }
+      status = true;
     break;
   }
 
-  store.dispatch('setApi', status);
+  store.dispatch('setServer', status);
 }
 
 const fail = (error) => {
-  store.dispatch('setApi', false);
+  store.dispatch('setServer', false);
 }
 
 export default () => {
-  return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/health')
+  let origin = location.origin;
+
+  return Vue.$http.get(origin)
   .then((response) => {
     success(response);
   })

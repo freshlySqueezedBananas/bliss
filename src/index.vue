@@ -34,20 +34,14 @@
     },
     computed: mapGetters({
       api: 'getApi',
+      server: 'getServer'
     }),
     methods: {
       monitorConnection: function() {
         let context = this;
         this.checkInterval = setInterval(function() {
-          context.checkConnection();
+          Service.connection.check();
         }, 3000);
-      },
-      checkConnection: function() {
-        Vue.$http.get("/").then(response => {
-          this.conn = true;
-        }).catch(error => {
-          this.conn = false;
-        });
       },
       pronounceAlive: function() {
         this.health = true;
@@ -75,12 +69,12 @@
     },
     watch: {
       api: function() {
-        if (this.api) {
-          this.pronounceAlive();
-        }
-        else {
-          this.pronounceDead();
-        }
+        this.api ?
+          this.pronounceAlive() : this.pronounceDead();
+      },
+      server: function() {
+        this.server ?
+          this.conn = true : this.conn = false;
       },
       showLoading: function() {
         if (this.showLoading) {

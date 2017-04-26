@@ -7,12 +7,16 @@ const initial = {
 }
 
 import {
-  SET_API
+  SET_API,
+  SET_SERVER
 } from './mutation-types';
 
 const mutations = {
   [SET_API] (state, status) {
     state.api = status;
+  },
+  [SET_SERVER] (state, status) {
+    state.server = status;
   },
 }
 
