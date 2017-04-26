@@ -58,6 +58,13 @@ import jQuery from 'jquery';
 
 window.$ = window.jQuery = jQuery;
 
+/* ============
+ * Tween.js
+ * ============
+ * https://github.com/tweenjs/tween.js/
+ */
+window.TWEEN = require('tween.js');
+
 
 /* ============
  * Bootstrap
