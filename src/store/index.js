@@ -11,5 +11,5 @@ export default new Vuex.Store({
   modules: {
     questions
   },
-  strict: debug,
+  strict: false,
 })

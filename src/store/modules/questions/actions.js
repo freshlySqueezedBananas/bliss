@@ -4,6 +4,7 @@ import {
   FETCH_QUESTIONS,
   FETCH_QUESTION,
   SEARCH_QUESTIONS,
+  UPDATE_QUESTION,
   SET_OFFSET,
   SET_FILTER,
 } from './mutation-types';
@@ -29,6 +30,15 @@ export function updateFilter({ commit }, filter) {
   commit(SET_FILTER, filter);
 }
 
-export function share({ commit }, { email, url }) {
+export function share({ email, url }) {
   return Vue.$http.post('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/share?'+email+'&'+url)
+}
+
+export function voteQuestion({ commit, state }, { questionId, choice }) {
+  let updated = Object.assign({}, state.question);
+  let index =  _.findIndex(updated.choices, function(i) { return i.choice == choice });
+  updated.choices[index].votes++;
+
+  return Vue.$http.put('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+questionId, choice)
+    .then(() => commit(UPDATE_QUESTION, updated))
 }

@@ -1,29 +1,29 @@
 import Vue from 'vue';
 
 export default {
-  props: ['question_id','choice', 'totalVotes', 'voted'],
+  props: ['question_id','choice', 'totalVotes', 'answered'],
   data: function() {
     return {
       votes: 0,
+      votesAnimated: 0,
       percentage: 0,
-      percentageAnimated: 0,
-      upVoted: false
+      voted: false
     }
   },
   mounted: function() {
-    setTimeout(() => this.calculatePercentage(), 100);
+    setTimeout(() => this.init(), 100);
   },
   updated: function() {
-    this.calculatePercentage()
+    this.init()
   },
   methods: {
-    calculatePercentage() {
+    init: function () {
       this.percentage = (this.choice.votes/this.totalVotes*100).toFixed(2);
+      this.votes = this.choice.votes;
     },
-    upVote: function (e) {
-      e.preventDefault();
-      if (!this.upVoted) {
-        this.upVoted = true;
+    vote: function () {
+      if (!this.answered) {
+        this.voted = true;
         this.$emit('vote', this.choice);
       }
     }
@@ -40,7 +40,10 @@ export default {
     }
   },
   watch: {
-    percentage: function(newValue, oldValue) {
+    choice: function() {
+      console.log('watch_choice '+this.percentage)
+    },
+    votes: function(newValue, oldValue) {
       const context = this;
       let animationFrame;
 
@@ -53,7 +56,7 @@ export default {
         .easing(TWEEN.Easing.Quadratic.Out)
         .to({ tweeningNumber: newValue }, 500)
         .onUpdate(function() {
-          this.percentageAnimated = this.tweeningNumber.toFixed(2)
+          context.votesAnimated = this.tweeningNumber.toFixed(0)
         })
         .onComplete(function() {
           cancelAnimationFrame(animationFrame)

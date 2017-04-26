@@ -24,6 +24,12 @@ ul.list-group {
 
 .answer {
   cursor: pointer;
+
+  &.disabled {
+    background-color: #fff !important;
+    cursor: not-allowed;
+    color: inherit;
+  }
 }
 
 .progress-bar {

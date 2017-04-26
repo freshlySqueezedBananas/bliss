@@ -1,8 +1,8 @@
-<a class="list-group-item answer" @click="upVote">
-  <span>{{ choice.choice }}</span> <span class="badge">{{ choice.votes }}</span>
+<a class="list-group-item answer" :class="{ disabled: answered }" @click.prevent="vote">
+  <span>{{ choice.choice }}</span> <span class="badge">{{ votesAnimated }}</span>
   <div class="progress">
-    <div class="progress-bar" :class="{ active: active }" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" :style="{ width: percentage + '%' }">
-      <span>{{ percentageAnimated }}%</span>
+    <div class="progress-bar" :class="{ active: voted }" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" :style="{ width: percentage + '%' }">
+      <span class="sr-only">{{ percentage }}<small>%</small></span>
     </div>
   </div>
 </a>

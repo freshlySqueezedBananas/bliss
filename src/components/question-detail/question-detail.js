@@ -11,74 +11,34 @@ export default {
   data: function() {
     return {
       votes: 0,
-      active: true,
+      updatedQuestion: null,
+      answered: false,
     }
   },
   computed: {
     date: function() {
       return moment(this.question.published_at).fromNow();
     },
-    votes: function() {
+    totalVotes: function() {
+      this.votes = 0;
+      const context = this;
       this.question.choices.forEach(function(choice) {
-        this.votes += parseInt(choice.votes);
+        context.votes += parseInt(choice.votes);
       });
+
+      return this.votes;
     }
   },
-  updated: function() {
-
-  },
   methods: {
-    /*getQuestion: function() {
-      Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+this.id).then(response => {
-
-        let totalVotes = 0;
-        _.each(response.data.choices, function(choice) {
-           totalVotes += parseInt(choice.votes);
-        });
-
-        response.data.votes = totalVotes;
-        _.each(response.data.choices, function(choice) {
-           let percentage = choice.votes/totalVotes*100;
-           choice.percentage = percentage.toFixed(2);
-        });
-
-        this.question = response.data;
-      });
-    },*/
+    ...mapActions([
+      'voteQuestion'
+    ]),
     updateQuestion: function(e) {
-      this.active = false;
-      let index = _.findIndex(this.question.choices, function(i) { return i.choice == e.choice;});
-
-      // Register vote in appropriate choice object.
-      this.question.choices[index].votes++;
-
-      Vue.$http.put('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+this.id, this.question).then(response => {
-        if (response.status == 201) {
-          this.question.votes++;
-
-          let totalVotes = this.question.votes;
-          _.each(this.question.choices, function(choice) {
-             let percentage = choice.votes/totalVotes*100;
-             choice.percentage = percentage.toFixed(2);
-          });
-
-        }
-        else {
-          this.active = true;
-          this.question.choices[index].votes--;
-        }
-      });
+      this.voteQuestion(e)
+        .then(() => this.answered = true);
     },
   },
   components: {
     answer: answer,
-  },
-  watch: {
-    question: function() {
-      const context = this;
-      this.question.choices.forEach((choice) => {
-        context.votes += parseInt(choice.votes);
-      });
-    }
   }
 }
