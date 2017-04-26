@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-
-Vue.use(Router)
-
-export default new Router({
+export default {
   props: ['health'],
   mode: 'history',
   routes: [
@@ -24,4 +19,4 @@ export default new Router({
       props: true,
     }
   ]
-})
+}

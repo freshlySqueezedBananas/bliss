@@ -1,4 +1,8 @@
 <div class="container">
-  <question-list @showModal="showModal = true" @filter="updateFilter"></question-list>
-  <modal v-if="showModal" @close="showModal = false" :filter="filter"></modal>
+  <navbar-top @search="onSearch"/>
+  <question-list :filtering="filtering"/>
+  <modal v-if="showModal" @close="showModal = false" :title="modalTitle"/>
+  <transition name="slide-down">
+    <navbar-bottom v-if="showNavBottom" @showModal="showModal = true" @close="onSearchExit"/>
+  </transition>
 </div>

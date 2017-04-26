@@ -27,17 +27,14 @@
 }
 
 .modal-header {
+  position: relative;
   border-bottom: 0;
   padding-bottom: 0;
-}
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 10px 0;
+  h3 {
+    margin-top: 0;
+    color: #42b983;
+  }
 }
 
 .modal-footer {
@@ -70,12 +67,10 @@
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
 .link-box {
   padding: 6px;
   text-align: center;
   background-color: mistyrose;
-  margin-bottom: 15px;
   font-weight: bold;
   border-radius: 4px;
   border: 1px solid #ccc;
@@ -83,4 +78,11 @@
 
 .text-danger {
   text-align: center
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  font-size: 40px;
 }

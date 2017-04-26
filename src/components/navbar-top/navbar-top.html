@@ -1,0 +1,15 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-header">
+      <form class="inline-form" role="search">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" ref="search" :value="filter" :filter:="filter" v-model="search" @keyup.enter.prevent="searchQuestion">
+          <div class="input-group-btn">
+              <button class="btn btn-default" type="button" @click="searchQuestion"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>

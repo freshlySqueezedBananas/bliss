@@ -1,5 +1,8 @@
 #app {
-  padding-top: 75px;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 }
 
 .container {
@@ -11,13 +14,39 @@ a, button {
     outline: none !important;
   }
 }
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
 .halt {
   overflow: hidden;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
+
+.slide-down-enter-active {
+  transition: all .3s ease;
+}
+.slide-down-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-down-enter, .slide-down-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateY(50px);
+  opacity: 1;
+}
+
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-down-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateY(50px);
+  opacity: 0;
 }

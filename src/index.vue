@@ -4,13 +4,16 @@
     <router-view></router-view>
   </div>
 </template>
+
 <script>
   import Vue from 'vue'
-  import router from './router'
+  import store from './store'
+  import { router } from './bootstrap'
   import loadingScreen from './components/loading/loading.vue';
 
   export default {
     router,
+    store,
     data: function() {
       return {
         health: null,
@@ -53,14 +56,13 @@
       },
       pronounceAlive: function() {
         this.health = true;
-        this.monitorConnection();
+        //this.monitorConnection();
         this.showLoading = false;
       },
       pronounceDead: function() {
         this.health = false;
         this.dead = true;
         this.showLoading = true;
-
       },
       resetTrials: function() {
         clearInterval(this.checkInterval);
