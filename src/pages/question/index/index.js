@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
+
 import questionDetail from '../../../components/question-detail/question-detail.vue';
 import navbarBottom from '../../../components/navbar-bottom/navbar-bottom.vue';
 import modal from '../../../components/share-modal/share-modal.vue';
@@ -11,9 +13,16 @@ export default {
       modalTitle: 'Share question'
     }
   },
-  created: function() {
+  computed: mapGetters({
+    question: 'getQuestion'
+  }),
+  mounted: function() {
+    this.fetchQuestion(this.id);
   },
   methods: {
+    ...mapActions([
+      'fetchQuestion'
+    ]),
     goBack: function() {
       this.$router.push('/');
       console.log();

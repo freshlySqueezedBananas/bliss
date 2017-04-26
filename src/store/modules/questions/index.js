@@ -6,12 +6,14 @@ const initial = {
   limit: 10,
   offset: 0,
   filter: '',
+  question: {},
   all: []
 };
 
 
 import {
   FETCH_QUESTIONS,
+  FETCH_QUESTION,
   SEARCH_QUESTIONS,
   SET_LIMIT,
   SET_OFFSET,
@@ -19,6 +21,9 @@ import {
 } from './mutation-types';
 
 const mutations = {
+  [FETCH_QUESTION] (state, question) {
+    state.question = question;
+  },
   [FETCH_QUESTIONS] (state, questions) {
     state.all = state.all.concat(questions);
     state.offset += questions.length;

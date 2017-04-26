@@ -5,14 +5,14 @@ export default {
   props: ['title'],
   data: function() {
     return {
-      link: '',
+      url: '',
       email: null,
       error: false,
       failed: false
     }
   },
   created: function() {
-    this.link = encodeURI(window.location.href)
+    this.url = encodeURI(window.location.href)
   },
   methods: {
     ...mapActions([
@@ -25,7 +25,7 @@ export default {
     shareQuestion: function() {
       $(this.$refs.button).prop('disabled', true);
       if (this.validateEmail()) {
-        this.share(this.email, this.link)
+        this.share(this.email, this.url)
           .then(() => {
               this.$emit('close');
           })

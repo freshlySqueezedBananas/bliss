@@ -1,23 +1,34 @@
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
+
 import _ from 'lodash';
 const moment = require('moment');
 
 import answer from '../answer/answer.vue';
 
 export default {
-  props: ['id'],
+  props: ['question'],
   data: function() {
     return {
+      votes: 0,
       active: true,
-      question: {}
     }
   },
-  created: function() {
-    this.date = moment(this.question.published_at).fromNow();
-    this.getQuestion();
+  computed: {
+    date: function() {
+      return moment(this.question.published_at).fromNow();
+    },
+    votes: function() {
+      this.question.choices.forEach(function(choice) {
+        this.votes += parseInt(choice.votes);
+      });
+    }
+  },
+  updated: function() {
+
   },
   methods: {
-    getQuestion: function() {
+    /*getQuestion: function() {
       Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+this.id).then(response => {
 
         let totalVotes = 0;
@@ -33,7 +44,7 @@ export default {
 
         this.question = response.data;
       });
-    },
+    },*/
     updateQuestion: function(e) {
       this.active = false;
       let index = _.findIndex(this.question.choices, function(i) { return i.choice == e.choice;});
@@ -59,12 +70,15 @@ export default {
       });
     },
   },
-  watch: {
-    question: function() {
-      this.date = moment(this.question.published_at).fromNow();
-    }
-  },
   components: {
     answer: answer,
   },
+  watch: {
+    question: function() {
+      const context = this;
+      this.question.choices.forEach((choice) => {
+        context.votes += parseInt(choice.votes);
+      });
+    }
+  }
 }

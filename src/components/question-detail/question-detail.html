@@ -3,6 +3,6 @@
   <div class="signature"><a href="#">@anonymous</a> {{ date }}</div>
   <img :src="question.image_url"/>
   <ul class="list-group" :class="{ active: !active }">
-    <answer v-for="choice in question.choices" :key="choice.choice" :choice="choice" :voted="active" :question_id="question.id" @vote="updateQuestion"></answer>
+    <answer v-for="choice in question.choices" :key="choice.choice" :choice="choice" :totalVotes="votes" :voted="active" :question_id="question.id" @vote="updateQuestion"></answer>
   </ul>
 </div>
