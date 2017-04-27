@@ -3,7 +3,7 @@ import * as getters from './getters';
 
 const initial = {
   server: true,
-  api: false
+  api: null
 }
 
 import {

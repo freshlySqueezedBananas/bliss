@@ -35,6 +35,13 @@ svg {
   -webkit-animation: dash 1.5s linear forwards infinite,fade 1.5s linear infinite;
   -moz-animation: dash 1.5s linear forwards infinite,fade 1.5s linear infinite;
   -o-animation: dash 1.5s linear forwards infinite,fade 1.5s linear infinite;
+
+  polyline {
+    fill:none;
+    stroke:#fff;
+    stroke-miterlimit:10;
+    stroke-width:0.5px
+  }
 }
 
 @keyframes dash {

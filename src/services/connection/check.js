@@ -24,7 +24,7 @@ export default () => {
   .then((response) => {
     success(response);
   })
-  .catch(() => {
+  .catch((error) => {
     fail();
   });
 }

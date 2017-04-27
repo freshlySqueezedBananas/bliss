@@ -16,6 +16,7 @@ import {
   FETCH_QUESTION,
   SEARCH_QUESTIONS,
   UPDATE_QUESTION,
+  SET_QUESTION,
   SET_LIMIT,
   SET_OFFSET,
   SET_FILTER
@@ -34,6 +35,9 @@ const mutations = {
     state.offset = questions.length;
   },
   [UPDATE_QUESTION] (state, question) {
+    state.question = question;
+  },
+  [SET_QUESTION] (state, question) {
     state.question = question;
   },
   [SET_LIMIT] (state, limit) {

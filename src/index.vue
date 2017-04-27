@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <loading-screen v-if="showLoading" :health="health" :dead="dead" :conn="conn" :refreshing="refreshing" @refresh="onRefresh"></loading-screen>
+    <loading-screen v-if="showLoading" :api="api" :dead="dead" :server="server" :refreshing="refreshing" @refresh="onRefresh"></loading-screen>
     <router-view></router-view>
   </div>
 </template>
@@ -13,7 +13,6 @@
   import Service from './services'
   import { router } from './bootstrap'
 
-
   import loadingScreen from './components/loading/loading.vue';
 
   export default {
@@ -21,9 +20,6 @@
     store,
     data: function() {
       return {
-        health: null,
-        dead: false,
-        conn: true,
         refreshing: false,
         showLoading: true,
       }
@@ -31,27 +27,18 @@
     created: function() {
       $('body').addClass('halt');
       Service.health.check();
+      Service.connection.monitor();
     },
     computed: mapGetters({
       api: 'getApi',
       server: 'getServer'
     }),
     methods: {
-      monitorConnection: function() {
-        let context = this;
-        this.checkInterval = setInterval(function() {
-          Service.connection.check();
-        }, 3000);
-      },
-      pronounceAlive: function() {
-        this.health = true;
-        this.monitorConnection();
-        this.showLoading = false;
-      },
-      pronounceDead: function() {
-        this.health = false;
-        this.dead = true;
+      showLoading: function() {
         this.showLoading = true;
+      },
+      hideLoading: function() {
+        this.showLoading = false;
       },
       resetTrials: function() {
         clearInterval(this.checkInterval);
@@ -70,12 +57,16 @@
     watch: {
       api: function() {
         this.api ?
+          this.hideLoading() : false;
+      },
+      /*api: function() {
+        this.api ?
           this.pronounceAlive() : this.pronounceDead();
       },
       server: function() {
         this.server ?
           this.conn = true : this.conn = false;
-      },
+      },*/
       showLoading: function() {
         if (this.showLoading) {
           $('body').addClass('halt');

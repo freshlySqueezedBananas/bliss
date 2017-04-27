@@ -5,17 +5,17 @@ export default {
     {
       path: '/',
       name: 'home',
-      component: require('@/pages/questions/index/index.vue')
+      component: require('@/views/questions/index/index.vue')
     },
     {
       path: '/questions',
       name: 'questions',
-      component: require('@/pages/questions/index/index.vue')
+      component: require('@/views/questions/index/index.vue')
     },
     {
       path: '/questions/:id',
       name: 'question',
-      component: require('@/pages/question/index/index.vue'),
+      component: require('@/views/question/index/index.vue'),
       props: true,
     }
   ]

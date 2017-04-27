@@ -5,9 +5,14 @@ import {
   FETCH_QUESTION,
   SEARCH_QUESTIONS,
   UPDATE_QUESTION,
+  SET_QUESTION,
   SET_OFFSET,
   SET_FILTER,
 } from './mutation-types';
+
+export function setQuestion({ commit }, data) {
+  commit(SET_QUESTION, data);
+}
 
 export function fetchQuestion({ commit }, questionId) {
   return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+questionId)
