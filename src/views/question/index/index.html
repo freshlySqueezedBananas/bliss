@@ -1,0 +1,5 @@
+<div class="container">
+  <modal v-if="showModal" @close="showModal = false" :title="modalTitle"/>
+  <question-detail :question="question"></question-detail>
+  <navbar-bottom @showModal="showModal = true" @close="goBack"/>
+</div>
