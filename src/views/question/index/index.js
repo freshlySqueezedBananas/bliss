@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
-import Service from '../../../services'
+import Service from '../../../services';
 
 import questionDetail from '../../../components/question-detail/question-detail.vue';
 import navbarBottom from '../../../components/navbar-bottom/navbar-bottom.vue';

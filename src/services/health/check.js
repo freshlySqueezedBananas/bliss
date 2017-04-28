@@ -20,7 +20,7 @@ const fail = (error) => {
 }
 
 export default () => {
-  return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/health')
+  return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/healths')
   .then((response) => {
     success(response);
   })
