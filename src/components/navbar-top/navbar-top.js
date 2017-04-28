@@ -24,5 +24,10 @@ export default {
         this.$emit('search', this.search);
       }
     }
+  },
+  watch: {
+    filter: function() {
+      this.search = this.filter;
+    }
   }
 }

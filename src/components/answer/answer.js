@@ -40,9 +40,6 @@ export default {
     }
   },
   watch: {
-    choice: function() {
-      console.log('watch_choice '+this.percentage)
-    },
     votes: function(newValue, oldValue) {
       const context = this;
       let animationFrame;
