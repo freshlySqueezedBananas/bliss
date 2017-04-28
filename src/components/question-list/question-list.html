@@ -1,8 +1,5 @@
-<div>
-  <transition name="slide-fade">
-    <ul class="list-group" v-if="contentLoaded">
-      <question v-for="question in questions" :question="question" :key="question.id"></question>
-      <infinite-loading spinner="waveDots" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
-    </ul>
-  </transition>
-</div>
+<transition name="slide-fade">
+  <ul class="list-group">
+    <question v-for="question in questions" :question="question" :key="question.id"></question>
+  </ul>
+</transition>

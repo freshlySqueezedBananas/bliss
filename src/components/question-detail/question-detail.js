@@ -34,6 +34,9 @@ export default {
       'voteQuestion'
     ]),
     updateQuestion: function(e) {
+      /*const question = this.question;
+      const choice = e.choice;
+      this.$emit('vote', {question, choice});*/
       this.voteQuestion(e)
         .then(() => this.answered = true);
     },

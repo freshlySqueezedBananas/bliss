@@ -1,6 +1,10 @@
-<div class="container">
-  <navbar-top @search="onSearch"/>
-  <question-list :filtering="filtering"/>
+<div>
+  <navbar-top :filter="filter" @search="onSearch"/>
+  <div class="container">
+    <content-loading v-if="contentLoading"/>
+    <question-list :questions="questions" @infinite="onInfinite"/>
+    <infinite-loading v-if="!contentLoading" spinner="waveDots" :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
+  </div>
   <modal v-if="showModal" @close="showModal = false" :title="modalTitle"/>
   <transition name="slide-down">
     <navbar-bottom v-if="showNavBottom" @showModal="showModal = true" @close="onSearchExit"/>

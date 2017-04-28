@@ -1,4 +1,4 @@
-import * as actions from './actions';
+ import * as actions from './actions';
 import * as getters from './getters';
 
 const initial = {
@@ -12,30 +12,28 @@ const initial = {
 
 
 import {
-  FETCH_QUESTIONS,
-  FETCH_QUESTION,
-  SEARCH_QUESTIONS,
   UPDATE_QUESTION,
+  ADD_QUESTIONS,
   SET_QUESTION,
+  SET_QUESTIONS,
   SET_LIMIT,
   SET_OFFSET,
-  SET_FILTER
+  SET_FILTER,
+  SET_PROCESSING
 } from './mutation-types';
 
 const mutations = {
-  [FETCH_QUESTION] (state, question) {
+  [UPDATE_QUESTION] (state, question) {
     state.question = question;
   },
-  [FETCH_QUESTIONS] (state, questions) {
+
+  [ADD_QUESTIONS] (state, questions) {
     state.all = state.all.concat(questions);
     state.offset += questions.length;
   },
-  [SEARCH_QUESTIONS] (state, questions) {
+  [SET_QUESTIONS] (state, questions) {
     state.all = questions;
     state.offset = questions.length;
-  },
-  [UPDATE_QUESTION] (state, question) {
-    state.question = question;
   },
   [SET_QUESTION] (state, question) {
     state.question = question;
@@ -48,6 +46,9 @@ const mutations = {
   },
   [SET_FILTER] (state, filter) {
     state.filter = filter;
+  },
+  [SET_PROCESSING] (state, processing) {
+    state.processing = processing;
   }
 };
 

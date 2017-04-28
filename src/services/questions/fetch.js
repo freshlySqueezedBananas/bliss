@@ -1,26 +1,38 @@
 import Vue from 'vue';
 import store from '../../store';
+
+let all = true;
+let mutator = '';
+
 const success = (response) => {
-  let status = false;
+  mutator = all ? 'setQuestions' : 'setQuestion';
 
   switch(response.status) {
     case 200:
       if (response.data) {
-        status = true;
+        store.dispatch(mutator, response.data);
       }
     break;
   }
-
-  store.dispatch('setQuestion', response.data);
 }
 
 const fail = (error) => {
-  store.dispatch('setQuestion', {});
+  mutator = all ? 'setQuestion' : 'setQuestions';
+
+  store.dispatch(mutator, {});
 }
 
 export default (questionId) => {
+  if (questionId) {
+    all = false;
+  }
 
-  return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions/'+questionId)
+  const request = all ?
+    '/questions?'+store.state.questions.limit+'&'+store.state.questions.offset+'&'+store.state.questions.filter :
+    '/questions/'+questionId
+
+
+  return Vue.$http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com'+request)
     .then((response) => {
       success(response);
     })

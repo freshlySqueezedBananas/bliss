@@ -1,5 +1,10 @@
-<div class="container">
+<div>
+  <div class="container">
+    <content-loading v-if="contentLoading"/>
+    <question-detail :question="question" @vote="onVote"></question-detail>
+  </div>
   <modal v-if="showModal" @close="showModal = false" :title="modalTitle"/>
-  <question-detail :question="question"></question-detail>
-  <navbar-bottom @showModal="showModal = true" @close="goBack"/>
+  <transition name="slide-down">
+    <navbar-bottom @showModal="showModal = true" @close="goBack"/>
+  </transition>
 </div>

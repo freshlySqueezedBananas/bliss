@@ -1,9 +1,12 @@
 import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import Service from '../../../services';
 
+import contentLoading from '../../../components/content-loading/content-loading.vue';
 import navbarTop from '../../../components/navbar-top/navbar-top.vue';
 import navbarBottom from '../../../components/navbar-bottom/navbar-bottom.vue';
 import questionList from '../../../components/question-list/question-list.vue';
+import InfiniteLoading from 'vue-infinite-loading';
 import modal from '../../../components/share-modal/share-modal.vue';
 
 
@@ -11,7 +14,7 @@ export default {
 
   data: function() {
     return {
-      filtering: null,
+      contentLoading: true,
       showNavBottom: false,
       showModal: false,
       modalTitle: 'Share search results'
@@ -20,42 +23,50 @@ export default {
   created: function() {
     const query = this.$route.query.question_filter;
 
-    this.filtering = this.showNavBottom = query ? true : false;
+    this.showNavBottom = query ? true : false;
+  },
+  mounted: function() {
+    Service.questions.fetch().then(() => this.contentLoading = false);
   },
   computed: mapGetters({
-    filter: 'getFilter'
+    filter: 'getFilter',
+    questions: 'getQuestions'
   }),
   methods: {
-    ...mapActions([
-      'updateFilter'
-    ]),
+    onInfinite: function() {
+      Service.questions.fetchMore().then(() => this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded'));
+    },
     onSearch: function(filter) {
-      this.updateFilter(filter)
-        .then(() => {
-          this.filtering = true;
-          this.showNavBottom = true;
-          this.$router.replace({ query: { question_filter: filter}})
-        }
-      );
+      $(window).scrollTop(0);
+      this.showNavBottom = true;
+      this.contentLoading = true;
+      this.$router.replace({ query: { question_filter: filter}})
+      Service.questions.search(filter).then(() => this.contentLoading = false);
     },
     onSearchExit: function() {
-      this.updateFilter('')
-        .then(() => {
-          this.filtering = false;
-          this.showNavBottom = false;
-          this.$router.push("/");
+      $(window).scrollTop(0);
+      this.showNavBottom = true;
+      this.contentLoading = true;
+      this.$router.push("/");
+      Service.questions.search('').then(() => {
+        this.contentLoading = false;
+        this.showNavBottom = false;
       });
     }
   },
   components: {
+    contentLoading,
     navbarTop,
     navbarBottom,
     questionList,
+    InfiniteLoading,
     modal
   },
   watch: {
-    filter: function(search) {
-      console.log('filter change ::: '+search)
+    contentLoading: function() {
+      this.contentLoading ?
+        $('body').addClass('halt') :
+        $('body').removeClass('halt');
     }
   }
 }
