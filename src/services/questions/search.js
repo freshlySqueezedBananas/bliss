@@ -14,7 +14,6 @@ const success = (response) => {
   }
 
   store.dispatch('addQuestions', response.data);
-  console.log(store.state.questions);
 }
 
 const fail = (error) => {
