@@ -34,10 +34,10 @@ Vue.$http = Axios;
  * http://router.vuejs.org/en/index.html
  */
 import VuexRouterSync from 'vuex-router-sync';
-import store from './store';
+import store from './app/store';
 
 import VueRouter from 'vue-router';
-import routes from './routes';
+import routes from './app/routes';
 
 Vue.use(VueRouter);
 
@@ -64,7 +64,6 @@ window.$ = window.jQuery = jQuery;
  * https://github.com/tweenjs/tween.js/
  */
 window.TWEEN = require('tween.js');
-
 
 /* ============
  * Bootstrap

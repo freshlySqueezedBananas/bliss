@@ -1,0 +1,5 @@
+<ul class="list-group">
+  <transition-group name="slide-fade">
+    <question v-for="question in questions" :question="question" :key="question.id"></question>
+  </transition-group>
+</ul>
