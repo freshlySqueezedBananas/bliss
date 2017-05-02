@@ -66,14 +66,6 @@ window.$ = window.jQuery = jQuery;
 window.TWEEN = require('tween.js');
 
 /* ============
- * GreenSock-JS
- * ============
- * https://github.com/greensock/GreenSock-JS/
- */
-import TweenMax from "gsap"
-window.TweenMax = TweenMax;
-
-/* ============
  * Bootstrap
  * ============
  * http://getbootstrap.com/
