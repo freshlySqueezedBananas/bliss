@@ -1,7 +1,3 @@
-# bliss
-
-> A Bliss Applications recruitment challenge
-
 ## Build Setup
 
 ``` bash
